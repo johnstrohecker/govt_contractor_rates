@@ -27,7 +27,7 @@ dataframe <- na.exclude(dataframe)
 ## Feature Engineering ##
 #########################
 
-# create dummy variables for key works in LCAT titles
+# create dummy variables for key words in LCAT titles
 dataframe$Technician <- grepl("Technician", dataframe$Labor.Category)
 dataframe$Admistrative <- grepl("Administrative", dataframe$Labor.Category)
 dataframe$Clerk <- grepl("Clerk", dataframe$Labor.Category)
