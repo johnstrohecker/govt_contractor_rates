@@ -77,7 +77,7 @@ test <- subset(test, select= -c(row_id))
 ####################
 
 # Train RF 
-RF <- randomForest(Current.Year.Labor.Price ~ ., data = train, ntree = 200, mtry = 2, importance = TRUE, proximity = FALSE)
+RF <- randomForest(Current.Year.Labor.Price ~ ., data = train, ntree = 200, mtry = 12, nodesize = 2, importance = TRUE, proximity = FALSE)
 
 # Run model against test set
 RFPred <- predict(RF, test)
