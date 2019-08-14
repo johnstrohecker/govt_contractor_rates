@@ -149,3 +149,27 @@ rmse(test$Current.Year.Labor.Price, StepwisePred)
 # Plot results versus predictions
 plotframe <- data.frame( predicted = StepwisePred, actual = test$Current.Year.Labor.Price, ed = test$education.Level)
 ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Actual Bill Rate (current year)", y = "Predicted Bill Rate", title = "Bi-variate analysis, Stepwise Linear Regression Model") + geom_abline(slope = 1, intercept = 0)
+
+## Repeat prediction and scoring for linear regression with 2 way interactions ##
+
+LMinteractions <- lm(Current.Year.Labor.Price ~ . ^2, data = train)
+
+# Stepwise regression model
+interaction.model <- stepAIC(LMinteractions, direction = "forward", trace = FALSE) 
+
+# tried forward and backward stepping.  No meaningful difference in model performance
+summary(interaction.model)
+
+# Run model against test set
+InteractionPred <- predict(interaction.model, test)
+
+# Some very wonky outliers.  Set upper bound at $600 and lower bound @ $11 to match original data set
+InteractionPred <- ifelse(InteractionPred > 600, 600, InteractionPred)
+InteractionPred <- ifelse(InteractionPred < 11, 11, InteractionPred)
+
+# score model using RMSE
+rmse(test$Current.Year.Labor.Price, InteractionPred)
+
+# Plot results versus predictions
+plotframe <- data.frame( predicted = InteractionPred, actual = test$Current.Year.Labor.Price, ed = test$education.Level)
+ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Actual Bill Rate (current year)", y = "Predicted Bill Rate", title = "Bi-variate analysis, Stepwise Linear Regression Model with two way interactions") + geom_abline(slope = 1, intercept = 0)
