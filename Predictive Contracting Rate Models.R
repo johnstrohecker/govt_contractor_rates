@@ -8,7 +8,7 @@ library(rpart)
 library(rpart.plot)
 library(MASS)
 
-# Read in data
+# Read in data from GSA
 # data source can be found at Calc.GSA.gov
 dataframe <- read.csv("government_contracting_rates.csv")
 
