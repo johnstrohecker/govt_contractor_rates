@@ -3,5 +3,5 @@ Building a predictive model for government contractor rates using data from http
 
 The focus of this project is to develop a useful predictive model to forecast government contractor rates for firms working with the US federal government.
 
-This information can be useful to government agencies when developing Independent Government Cost Estimates (IGCE) for new procurements, and to government contrators when assessing the prevailing rates in the market for different types of services. 
+This information can be useful to government agencies when developing Independent Government Cost Estimates (IGCE) for new procurements, and to government contractors when assessing the prevailing rates in the market for different types of services, or for determining fair market rates to use when negotiating schedules with GSA. 
 
