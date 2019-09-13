@@ -96,25 +96,6 @@ ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(
 importance(RF)
 varImpPlot(RF)
 
-####################
-#  Decision Tree   #
-####################
-
-# Train DT 
-DT <- rpart(Current.Year.Labor.Price ~ ., data = train)
-
-# Run model against test set
-DTPred <- predict(DT, test)
-
-# score model using RMSE
-rmse(test$Current.Year.Labor.Price, DTPred)
-
-# plot the decision tree
-rpart.plot(DT, type = 3)
-
-# Plot results versus predictions
-plotframe <- data.frame( predicted = DTPred, actual = test$Current.Year.Labor.Price, ed = test$education.Level)
-ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Actual Bill Rate (current year)", y = "Predicted Bill Rate", title = "Bi-variate analysis, Decision Tree Model") + geom_abline(slope = 1, intercept = 0)
 
 ########################
 #  Linear Regression   #
@@ -173,3 +154,26 @@ rmse(test$Current.Year.Labor.Price, InteractionPred)
 # Plot results versus predictions
 plotframe <- data.frame( predicted = InteractionPred, actual = test$Current.Year.Labor.Price, ed = test$education.Level)
 ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Actual Bill Rate (current year)", y = "Predicted Bill Rate", title = "Bi-variate analysis, Stepwise Linear Regression Model with two way interactions") + geom_abline(slope = 1, intercept = 0)
+
+## Repeat prediction and scoring for linear regression using log transformation for the dependant variable ##
+
+#create log-transformed variable - remove current year labor price from data set.  
+train$LogX <- log(train$Current.Year.Labor.Price)
+test$LogX <- log(test$Current.Year.Labor.Price)
+train <- subset(train, select = -c(Current.Year.Labor.Price))
+
+# Fit the model
+LMlog <- lm(LogX ~ ., data = train)
+
+# Run model against test set
+LogPred <- predict(LMlog, test)
+
+#unwind the log transformation 
+LogPred <- exp(LogPred)
+
+# score model using RMSE
+rmse(test$Current.Year.Labor.Price, LogPred)
+
+# Plot results versus predictions
+plotframe <- data.frame(predicted = LogPred, actual = test$Current.Year.Labor.Price, ed = test$education.Level)
+ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Bill Rate (current year)", y = "Predicted Bill Rate", title = "Bi-variate analysis, Linear Regression Model using log transform for DV") + geom_abline(slope = 1, intercept = 0)
