@@ -303,4 +303,4 @@ cv.error
 
 boxplot(cv.error,xlab='MSE CV',col='cyan',
         border='blue',names='CV error (MSE)',
-        main='CV error (MSE) for NN',horizontal=TRUE), title = "Bi-variate analysis, Linear Regression Model using log transform for DV") + geom_abline(slope = 1, intercept = 0)
+        main='CV error (MSE) for NN',horizontal=TRUE)
