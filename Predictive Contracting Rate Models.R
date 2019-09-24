@@ -176,5 +176,5 @@ rmse(test$Current.Year.Labor.Price, LogPred)
 
 # Plot results versus predictions
 plotframe <- data.frame(predicted = LogPred, actual = test$Current.Year.Labor.Price, ed = test$education.Level)
-ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Bill Rate (current year)", y = "Predicted Bill Rate"
+ggplot(data = plotframe, aes( x = actual, y = predicted)) + geom_point() + labs(x = "Bill Rate (current year)", y = "Predicted Bill Rate", title = "Bi-variate analysis, Linear Regression Model using log transform for DV") + geom_abline(slope = 1, intercept = 0)
                                                                                 
