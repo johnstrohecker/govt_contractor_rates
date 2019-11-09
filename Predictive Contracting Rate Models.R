@@ -31,36 +31,39 @@ dataframe <- na.exclude(dataframe)
 dataframe$Labor.Category <- tolower(dataframe$Labor.Category)
 
 # create dummy variables for key words in LCAT titles
-dataframe$Technician <- grepl("technician", dataframe$Labor.Category)
-dataframe$Admistrative <- grepl("administrative", dataframe$Labor.Category)
-dataframe$Clerk <- grepl("clerk", dataframe$Labor.Category)
-dataframe$Engineer <- grepl("engineer", dataframe$Labor.Category)
-dataframe$Architect <- grepl("architect", dataframe$Labor.Category)
-dataframe$Analyst <- grepl("analyst", dataframe$Labor.Category)
-dataframe$Program <- grepl("program", dataframe$Labor.Category)
-dataframe$Project <- grepl("project", dataframe$Labor.Category)
-dataframe$Manager <- grepl("manager", dataframe$Labor.Category)
-dataframe$Director <- grepl("director", dataframe$Labor.Category)
-dataframe$Expert <- grepl("expert", dataframe$Labor.Category)
-dataframe$Executive <- grepl("executive", dataframe$Labor.Category)
-dataframe$Principal <- grepl("principal", dataframe$Labor.Category)
-dataframe$Lead <- grepl("lead", dataframe$Labor.Category)
-dataframe$Senior <- grepl("senior", dataframe$Labor.Category)
-dataframe$Junior <- grepl("junior", dataframe$Labor.Category)
-dataframe$Journeyman <- grepl("journeyman", dataframe$Labor.Category)
-dataframe$Partner <- grepl("partner", dataframe$Labor.Category)
-dataframe$Strategy <- grepl("strategy", dataframe$Labor.Category)
-dataframe$Actuary <- grepl("actuary", dataframe$Labor.Category)
-dataframe$President <- grepl("president", dataframe$Labor.Category)
-dataframe$Clevel <- grepl("c-level", dataframe$Labor.Category)
-dataframe$Coach <- grepl("coach", dataframe$Labor.Category)
-dataframe$ERP <- grepl("erp", dataframe$Labor.Category)
-dataframe$Strategic <- grepl("strategic", dataframe$Labor.Category)
-dataframe$Producer <- grepl("producer", dataframe$Labor.Category)
-dataframe$Sr <- grepl("sr.", dataframe$Labor.Category)
-dataframe$Jr <- grepl("jr.", dataframe$Labor.Category)
-dataframe$Consultant <- grepl("consultant", dataframe$Labor.Category)
-dataframe$Interpreter <- grepl("interpreter", dataframe$Labor.Category)
+dataframe <- dataframe %>%
+  mutate(
+    Technician = grepl("technician", Labor.Category), 
+    Administrative = grepl("administrative", Labor.Category), 
+    Clerk = grepl("clerk", Labor.Category), 
+    Engineer = grepl("engineer", Labor.Category), 
+    Architecut = grepl("architect", Labor.Category), 
+    Analyst = grepl("analyst", Labor.Category), 
+    Program = grepl("program", Labor.Category), 
+    Project = grepl("project", Labor.Category), 
+    Manager = grepl("manager", Labor.Category), 
+    Director = grepl("director", Labor.Category), 
+    Expert = grepl("expert", Labor.Category), 
+    Excutive = grepl("executive", Labor.Category), 
+    Principal = grepl("principal", Labor.Category), 
+    Lead = grepl("lead", Labor.Category), 
+    Senior = grepl("senior", Labor.Category), 
+    Junior = grepl("junior", Labor.Category), 
+    Journeyman = grepl("journeyman", Labor.Category), 
+    Partner = grepl("partner", Labor.Category), 
+    Strategy = grepl("strategy", Labor.Category), 
+    Actuary = grepl("actuary", Labor.Category), 
+    President = grepl("president", Labor.Category), 
+    CLevel = grepl("c-level", Labor.Category), 
+    Coach = grepl("coach", Labor.Category), 
+    ERP = grepl("erp", Labor.Category), 
+    Strategic = grepl("strategic", Labor.Category), 
+    Producer = grepl("producer", Labor.Category), 
+    SR = grepl("sr", Labor.Category), 
+    JR = grepl("jr", Labor.Category), 
+    Consultant = grepl("consultant", Labor.Category), 
+    Interpreter = grepl("interpreter", Labor.Category), 
+  )
 
 # subset for just the variables to use in the model
 dataframe <- subset(dataframe, select=  -c(Contract.., SIN, Vendor.Name, Labor.Category, Next.Year.Labor.Price, Second.Year.Labor.Price))
